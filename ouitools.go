@@ -179,7 +179,7 @@ func (m *OuiDB) load(path string) error {
 }
 
 func (m *OuiDB) loadFromReader(reader io.Reader) error {
-	fieldsRe := regexp.MustCompile(`^(\S+)\t+(\S+)(\s+#\s+(\S.*))?`)
+	fieldsRe := regexp.MustCompile(`^(\S+)\s+([\S ]+)$`)
 
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
@@ -198,11 +198,6 @@ func (m *OuiDB) loadFromReader(reader io.Reader) error {
 
 		addr := fields[0][1]
 		org := fields[0][2] + "        "
-
-		switch org[:8] {
-		case "IeeeRegi", "Spanning":
-			continue
-		}
 
 		var oui [6]byte
 		var mask int
