@@ -260,11 +260,7 @@ func NewFromReader(reader io.Reader) *OuiDB {
 
 // NewFromBuiltIn returns a new OUI database loaded from the compiled-in version of oui.txt.
 func NewFromBuiltIn() *OuiDB {
-	if bs, err := Asset("oui.txt"); err != nil {
-		return nil
-	} else {
-		return NewFromReader(bytes.NewBuffer(bs))
-	}
+	return NewFromReader(bytes.NewBuffer(builtin))
 }
 
 // New returns a new OUI database loaded from the specified file.
